@@ -1,23 +1,70 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
-	  <PublishSingleFile>true</PublishSingleFile>
-	  <SelfContained>false</SelfContained>
-	  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-	  <UseWPF>true</UseWPF>
-	  <Version>0.0.1</Version>
-	  <Authors>Gyuris Csaba</Authors>
-	  <Company>Vasvári</Company>
-	  <Product />
-	  <Description>Kilépés gomb működik</Description>
-  </PropertyGroup>
+	  <OutputType>WinExe</OutputType>
+	  <TargetFramework>net5.0-windows</TargetFramework>
+      <PublishSingleFile>true</PublishSingleFile>
+      <SelfContained>false</SelfContained>
+      <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+      <UseWPF>true</UseWPF>
+</PropertyGroup>
+
 
   <ItemGroup>
-    <None Update="Icons\exit.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Remove="Icons\back_icon.png" />
+    <None Remove="Icons\exit_icon.png" />
+    <None Remove="Icons\update_icon.png" />
   </ItemGroup>
 
+
+	  <ItemGroup>
+	    <PackageReference Include="NuGet.CommandLine" Version="5.11.0">
+	      <PrivateAssets>all</PrivateAssets>
+	      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	    </PackageReference>
+	    <PackageReference Include="Octokit" Version="0.50.0" />
+	    <PackageReference Include="squirrel.windows" Version="1.9.0" />
+	  </ItemGroup> 
+	
+  <ItemGroup>
+    <Resource Include="Icons\back_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\exit_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\update_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup> 
+	
+  <ItemGroup>
+    <Page Update="Pages\WelcomePage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+	
+    <PropertyGroup>
+        <NugetTools>$(PkgNuGet_CommandLine)\tools</NugetTools>
+        <SquirrelTools>$(Pkgsquirrel_windows)\tools</SquirrelTools>
+
+        <Version>0.0.7</Version>
+
+        <NuspecFile>Vizsgaremek.nuspec</NuspecFile>
+
+        <NeutralLanguage>hu</NeutralLanguage>
+
+        <Description>Helyi és github verzió lekérdezése, új verzió letöltése</Description>
+    </PropertyGroup>
+
+    <Target Name="GenerateRelease" AfterTargets="AfterBuild" Condition="$(Configuration) == Release">
+        <XmlPeek XmlInputPath="$(NuspecFile)" Query="/package/metadata/id/text()">
+        <Output TaskParameter="Result" ItemName="ID" />
+    </XmlPeek>
+
+    <Exec Command="$(NugetTools)\NuGet.exe pack $(NuspecFile) -Version $(Version) -Properties Configuration=Release -OutputDirectory $(SolutionDir)..\..\Deployment\GeneratedNugets" />
+
+    <Exec Command="$(SquirrelTools)\Squirrel.exe --releasify $(SolutionDir)..\..\Deployment\GeneratedNugets\@(ID).$(Version).nupkg --releaseDir=$(SolutionDir)..\..\Deployment\Releases" />
+    <Exec Command="$(SquirrelTools)\Squirrel.exe --releasify $(SolutionDir)..\..\Deployment\GeneratedNugets\@(ID).$(Version).nupkg --releaseDir=$(SolutionDir)..\..\Deployment\Releases" />
+
+	</Target>
 </Project>
