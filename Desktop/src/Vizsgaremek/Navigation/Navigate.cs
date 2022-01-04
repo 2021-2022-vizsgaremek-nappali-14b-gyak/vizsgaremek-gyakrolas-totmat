@@ -19,7 +19,13 @@ namespace Vizsgaremek.Navigation
         /// <param name="userControl">Erre az ablakra váltun</param>
         public static void Navigation(UserControl userControl)
         {
+            mainWindow.PageContent.Children.Clear();
             mainWindow.PageContent.Children.Add(userControl);
+        }
+
+        public static void NavigationToFullScreen(Page userPage)
+        {           
+            mainWindow.Content=userPage;
         }
     }
 }

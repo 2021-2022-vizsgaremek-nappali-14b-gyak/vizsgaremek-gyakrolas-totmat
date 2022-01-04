@@ -1,91 +1,69 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
-using Vizsgaremek.Pages;
-using Vizsgaremek.ProgramNavigation;
-using Vizsgaremek.Stores;
-using Vizsgaremek.ViewModels;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace Vizsgaremek.Views
+using Vizsgaremek.Navigation;
+using Vizsgaremek.Pages;
+
+namespace Vizsgaremek
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        TeacherStore teacherStore;
-        TeacherPageViewModel teacherPageViewModel;
         
-        
-        ResourceDictionary dict;
-
         public MainWindow()
         {
-            dict = new ResourceDictionary();
-            SetLanguageDictionary();
-
             InitializeComponent();
-            DataContext = this;
-            Navigation.mainWindow = this;
-
-            teacherStore = new TeacherStore();
-
-
-
+            // Statikus osztály a Navigate
+            // Eltárolja a nyitó ablakt, hogy azon tudjuk módosítani a "page"-ket
+            Navigate.mainWindow = this;
+            // Létrehozzuk a nyitó "UsuerControl" (WelcomPage)
             WelcomePage welcomePage = new WelcomePage();
-            Navigation.Navigate(welcomePage);
+            // Megjelnítjük a WelcomePage-t
+            Navigate.Navigation(welcomePage);
         }
 
+        /// <summary>
+        /// ListView elemen bal egér gomb fel lett engedve
+        /// </summary>
+        /// <param name="sender">ListView amin megnyomtuk a bal egér gombot</param>
+        /// <param name="e"></param>
         private void ListView_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            ListView menuListView = sender as ListView;
-            ListViewItem item = (ListViewItem)menuListView.SelectedItem;
-            if (item != null)
+            ListView lvMenu = sender as ListView;
+            ListViewItem lvMenuItem = lvMenu.SelectedItem as ListViewItem;
+            //ListViewItem lvMenuItem = (ListViewItem) lvMenu.SelectedItem;
+
+            if (lvMenuItem != null)
             {
-                switch (item.Name)
+                // x:Name tulajdonságot vizsgáljuk
+                switch (lvMenuItem.Name)
                 {
                     case "lviExit":
-                        this.Close();
+                        Close();
                         break;
-                    case "lviProgramUpdate":
-                        UpdateProgramVersionPage updateProgramVersionPage = new UpdateProgramVersionPage();
-
-
-                        Navigation.Navigate(updateProgramVersionPage);
-                        break;
-                    case "lviTeacher":
-                        TeacherControlViewModel teacherControlViewModel = new TeacherControlViewModel(teacherStore);                        
-                        teacherPageViewModel = new TeacherPageViewModel(teacherStore, teacherControlViewModel);
-                        TeacherPage teacherPage = new TeacherPage(teacherPageViewModel);
-
-                        Navigation.Navigate(teacherPage);
+                    case "lviProgramVersion":
+                        ProgramVersion programVersion = new ProgramVersion();
+                        Navigate.Navigation(programVersion);
                         break;
                 }
+                
             }
         }
 
-        private void SetLanguageDictionary()
-        {
 
-            switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
-            {
-                case "en":
-                    dict.Source = new Uri("..\\Resources\\StringResources.xaml", UriKind.Relative);
-                    break;
-
-                case "fr":
-                    dict.Source = new Uri("..\\Resources\\FR\\StringResources.xaml", UriKind.Relative);
-                    break;
-                case "hu":
-                    dict.Source = new Uri("..\\Resources\\HU\\StringResources.xaml", UriKind.Relative);
-                    break;
-                default:
-                    dict.Source = new Uri("..\\Resources\\StringResources.xaml", UriKind.Relative);
-                    break;
-            }
-            this.Resources.MergedDictionaries.Add(dict);
-        }
     }
 }
