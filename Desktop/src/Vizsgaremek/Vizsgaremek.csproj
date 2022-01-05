@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+	  <PublishSingleFile>true</PublishSingleFile>
+	  <SelfContained>false</SelfContained>
+	  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	  <UseWPF>true</UseWPF>
+	  <Version>0.0.3.0</Version>
+	  <Authors>Gyuris Csaba</Authors>
+	  <Company>Vasvári</Company>
+	  <Product />
+	  <Description>Program verzió navigáció működik</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\back_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Icons\exit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Validations\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\back_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
