@@ -25,5 +25,50 @@ namespace Vizsgaremek.Models.Tests
             // assert
             Assert.AreEqual(expected, actual, "Version is not 0.0.3.0");
         }
+
+        [TestMethod()]
+        public void ProgramInfoTesTitle()
+        {
+            // arrange
+            ProgramInfo programInfo = new ProgramInfo();
+            Version expected = new Version(0, 0, 3, 0);
+
+            // act
+            String actual = programInfo.Title;
+
+            // assert
+            Assert.AreEqual(expected, actual, "Version is not 0.0.3.0");
+        }
+
+        [TestMethod()]
+        public void ProgramInfoTestDescription()
+        {
+            // arrange
+            ProgramInfo programInfo = new ProgramInfo();
+            Version expected = new Version(0, 0, 3, 0);
+
+            // act
+            String actual = programInfo.Description;
+
+            // assert
+            Assert.AreEqual(expected, actual, "Version is not 0.0.3.0");
+        }
+
+        [TestMethod()]
+        public void ProgramInfoTestCompany()
+        {
+            // arrange
+            ProgramInfo programInfo = new ProgramInfo();
+            Version expected = new Version(0, 0, 3, 0);
+
+            // act
+            String actual = programInfo.Company;
+
+            // assert
+            Assert.AreEqual(expected, actual, "Version is not 0.0.3.0");
+        }
+
+
+
     }
 }

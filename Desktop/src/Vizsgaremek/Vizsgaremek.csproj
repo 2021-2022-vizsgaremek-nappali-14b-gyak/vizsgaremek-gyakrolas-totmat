@@ -8,7 +8,7 @@
 	  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	  <UseWPF>true</UseWPF>
 	  <Version>0.0.3.0</Version>
-	  <Authors>Gyuris Csaba</Authors>
+	  <Authors>Tóth Máté Pál</Authors>
 	  <Company>Vasvári</Company>
 	  <Product />
 	  <Description>Program verzió navigáció működik</Description>
