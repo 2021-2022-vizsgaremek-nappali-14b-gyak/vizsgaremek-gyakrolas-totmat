@@ -25,8 +25,13 @@ namespace Vizsgaremek.ViewModels
         }
         public string SelectedDatabaseSource 
         { 
-            get => selectedDatabaseSource; 
-            set => selectedDatabaseSource = value; 
+            get => selectedDatabaseSource;
+            set
+            {
+                selectedDatabaseSource = value;
+                displayedDatabaseSource = DisplayedDatabaseSource;
+                dbSource = DbSource;
+            }
         }
 
         public DbSource DbSource
@@ -67,6 +72,7 @@ namespace Vizsgaremek.ViewModels
         {
             repoDatabaseSouerces = new DatabaseSouerces();
             displayedDatabaseSources = new ObservableCollection<string>(repoDatabaseSouerces.GetAllDatabaseSources());
+            SelectedDatabaseSource = "localhost";
         }
     }
 }
