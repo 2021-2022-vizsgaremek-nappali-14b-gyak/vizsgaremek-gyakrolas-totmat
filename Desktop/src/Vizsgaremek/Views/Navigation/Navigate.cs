@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.Windows.Controls;
 
-namespace Vizsgaremek.Navigation
+namespace Vizsgaremek.Views.Navigation
 {
     public static class Navigate
     {

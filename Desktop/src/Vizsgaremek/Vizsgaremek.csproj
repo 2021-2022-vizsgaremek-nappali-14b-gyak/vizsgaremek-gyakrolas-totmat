@@ -7,11 +7,12 @@
 	  <SelfContained>false</SelfContained>
 	  <RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	  <UseWPF>true</UseWPF>
-	  <Version>0.0.3.0</Version>
-	  <Authors>Tóth Máté Pál</Authors>
+	  <Version>0.1.0.1</Version>
+	  <Authors>Gyuris Csaba</Authors>
 	  <Company>Vasvári</Company>
 	  <Product />
-	  <Description>Program verzió navigáció működik</Description>
+	  <Description>Vizsgaremek</Description>
+	  <Copyright></Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,7 +30,10 @@
     <Folder Include="Converters\" />
     <Folder Include="Validations\" />
     <Folder Include="Resources\" />
-    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Octokit" Version="0.50.0" />
   </ItemGroup>
 
   <ItemGroup>

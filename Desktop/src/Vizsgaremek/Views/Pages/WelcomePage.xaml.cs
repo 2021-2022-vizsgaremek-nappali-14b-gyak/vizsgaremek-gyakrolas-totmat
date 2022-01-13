@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Vizsgaremek.Pages
+namespace Vizsgaremek.Views.Pages
 {
     /// <summary>
     /// Interaction logic for WelcomePage.xaml

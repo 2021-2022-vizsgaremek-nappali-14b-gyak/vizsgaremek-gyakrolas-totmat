@@ -12,6 +12,12 @@
             </Grid>
             <Grid x:Name="PageContent" Height="874" VerticalAlignment="Bottom" Background="White">
             </Grid>
+            <Grid x:Name="ContentStatus" Height="30" VerticalAlignment="Bottom" Background="Silver">
+                <StackPanel Orientation="Horizontal">
+                    <Label>Kiválasztott adatforrás:</Label>
+                    <TextBlock x:Name="SelectedSource" Text="{Binding Path=SelectedSource}"></TextBlock>
+                </StackPanel>
+            </Grid>
         </Grid>
         <Grid Width="250" x:Name="LeftPanel" HorizontalAlignment="Left">
             <Grid x:Name="PageLogo" Height="150" VerticalAlignment="Top" Background="Orange">
@@ -22,6 +28,14 @@
                         <TextBlock>
                             Menü 1.
                         </TextBlock>
+                    </ListViewItem>
+                    <ListViewItem Height="30" x:Name="lviDatabaseSouceSelection" FontFamily="Century Gothic" FontSize="13" Foreground="White">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="20" Source="/Icons/exit.png" Margin="5 2 5 2"/>
+                            <TextBlock Margin="2 2 2 2">
+                                Adatábázis forrás választás
+                            </TextBlock>
+                        </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="30" x:Name="lviProgramVersion" FontFamily="Century Gothic" FontSize="13" Foreground="White">
                         <StackPanel Orientation="Horizontal">
